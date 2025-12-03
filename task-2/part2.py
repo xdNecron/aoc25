@@ -9,8 +9,7 @@ for low, high in proc:
     for i in range(int(low), int(high) + 1):
         string = str(i)
         for j in range(1, len(string) // 2 + 1):
-            occs = string.split(string[:j])
-            if set(occs) == {""}:
+            if set(string.split(string[:j])) == {""}:
                 _sum += i
                 break
 
