@@ -30,7 +30,7 @@ def main() -> None:
     with open('input.txt', "r") as f:
         field = [[pos for pos in line[:-1]] for line in f.readlines()]
 
-    current: int = 1  # so that while loop runs
+    current = 1  # so that while loop runs
 
     while current > 0:
         new_field: Field = [row.copy() for row in field]

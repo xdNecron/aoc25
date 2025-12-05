@@ -2,9 +2,7 @@ Position = tuple[int, int]
 Field = list[list[str]]
 
 
-def check_bounds(pos: Position, field: Field) -> bool:
-    x, y = pos
-
+def check_bounds(x: int, y: int, field: Field) -> bool:
     if x >= len(field[0]) or 0 > x:
         return False
     if y >= len(field) or 0 > y:
@@ -13,17 +11,17 @@ def check_bounds(pos: Position, field: Field) -> bool:
     return True
 
 
-def get_neighbours(x: int, y: int, field: Field) -> list[Position]:
-    res: list[Position] = []
+def get_roll_count(x: int, y: int, field: Field) -> int:
+    count: int = 0
 
     for i in range(-1, 2):
         for j in range(-1, 2):
             new_x, new_y = x + i, y + j
-            if (i != 0 or j != 0) and check_bounds((new_x, new_y), field):
+            if (i != 0 or j != 0) and check_bounds(new_x, new_y, field):
                 if field[new_y][new_x] == "@":
-                    res.append((x + i, y + j))
+                    count += 1
 
-    return res
+    return count
 
 
 def main() -> None:
@@ -34,7 +32,7 @@ def main() -> None:
 
     for y, row in enumerate(field):
         for x, cell in enumerate(row):
-            if cell == "@" and len(get_neighbours(x, y, field)) < 4:
+            if cell == "@" and get_roll_count(x, y, field) < 4:
                 _sum += 1
 
     print(_sum)
